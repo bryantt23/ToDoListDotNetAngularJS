@@ -3,8 +3,34 @@
 var todoApp = angular.module("todoApp", []);
 
 todoApp.controller("todoCtrl", function ($scope, $http) {
+    $scope.editableTodo = "";
     $scope.todos = [];
-    
+
+    //http://jsfiddle.net/timriley/GVCP2/
+    $scope.enableEditor = function (index) {
+        $scope.todos[index].EditableTodo = $scope.todos[index].Todo;
+        $scope.todos[index].EditorEnabled = true;
+    }
+
+    $scope.disableEditor = function (index) {
+        $scope.todos[index].EditorEnabled = false;
+    };
+
+    $scope.updateTodo = function (todo, id, index) {
+        $http({
+            method: "Post",
+            url: "Home/UpdateTodo",
+            data: {
+                index: id,
+                todo: todo
+            }
+        }).then(function mySuccess(response) {
+            $scope.todos[index].Todo = todo;
+            $scope.todos[index].EditorEnabled = false;
+        }, function myError(response) {
+        });
+    }
+
     $scope.deleteTodo = function (index) {
         $http({
             method: "Post",
@@ -30,11 +56,21 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
     }
 
     $scope.getTodos = function () {
+        $scope.todos = [];
         $http({
             method: "GET",
             url: "Home/GetTodos"
         }).then(function mySuccess(response) {
-            $scope.todos = response.data;
+            console.log(response    );
+            for (var i = 0; i < response.data.length; i++) {
+                $scope.todos[i] = {
+                    Todo: response.data[i].Todo,
+                    Id: response.data[i].Id,
+                    EditorEnabled: false,
+                    EditableTodo: response.data[i].Todo
+                }
+                console.log($scope.todos[i]);
+            }
         }, function myError(response) {
             $scope.myWelcome = response.statusText;
         });

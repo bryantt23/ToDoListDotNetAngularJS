@@ -29,6 +29,28 @@ namespace ToDoListDotNetAngularJS.Controllers
         }
 
         [HttpPost]
+        public void UpdateTodo(string todo, int index)
+        {
+            List<Todos> todos = new List<Todos>();
+            string connectionStr = ConfigurationManager
+                .ConnectionStrings["connectionStr"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionStr))
+            {
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "spEditTodo";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Todo", todo);
+                cmd.Parameters.AddWithValue("@Id", index);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return;
+        }
+
+        [HttpPost]
         public void AddTodo(string todo)
         {
             List<Todos> todos = new List<Todos>();
@@ -98,7 +120,7 @@ namespace ToDoListDotNetAngularJS.Controllers
                 con.Close();
             }
 
-            Todos[]res=todos.ToArray();
+            Todos[] res = todos.ToArray();
             return this.Json(todos, JsonRequestBehavior.AllowGet);
         }
     }

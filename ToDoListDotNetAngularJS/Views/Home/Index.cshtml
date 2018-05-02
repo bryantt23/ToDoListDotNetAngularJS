@@ -32,16 +32,35 @@
             <th></th>
         </tr>
         <tr ng-repeat="t in todos track by $index">
-            
+
             <th>{{$index+1}}</th>
-            <th>{{t.Todo}}</th>
+            <th>
+                <input ng-model="t.EditableTodo" ng-show="t.EditorEnabled">
+                <div ng-hide="t.EditorEnabled">{{t.Todo}}</div>
+            </th>
             <th><a href="#" ng-click="deleteTodo(t.Id)">Delete</a></th>
+            <th>
+                <div ng-hide="t.EditorEnabled">
+                    {{title}}
+                    <a href="#" ng-click="enableEditor($index)">Edit</a>
+                </div>
+                <div ng-show="t.EditorEnabled">
+                    <a href="#" ng-click="updateTodo(t.EditableTodo, t.Id, $index)">Save</a>
+                    or
+                    <a href="#" ng-click="disableEditor($index)">cancel</a>.
+                </div>
+            </th>
         </tr>
     </table>
 
-    <textarea ng-model="myTextarea"></textarea>
+    <br />
+    <button ng-click="getTodos()">Refresh Todos</button>
+
+    <br />
+
+    <textarea ng-model="myTextarea" placeholder="Add To Do Here"></textarea>
+    <br />
     <button ng-click="addTodo(myTextarea)">Add todo</button>
 
-    <button ng-click="getTodos()">get</button>
 </body>
 </html> 
