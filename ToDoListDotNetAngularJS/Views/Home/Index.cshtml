@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/Todos/Todos.js"></script>
+</head>
+<body ng-app="todoApp" ng-controller="todoCtrl">
+    {{message}}
+
+    <ul ng-repeat="n in nums">
+        <li>{{n}}</li>
+    </ul>
+
+    <button ng-click="getTodos()">get</button>
+</body>
+</html> 
