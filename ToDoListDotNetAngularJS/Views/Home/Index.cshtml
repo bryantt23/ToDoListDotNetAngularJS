@@ -4,11 +4,41 @@
     <title></title>
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/Todos/Todos.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 </head>
 <body ng-app="todoApp" ng-controller="todoCtrl">
     {{message}}
 
-    <ul ng-repeat="n in nums">
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>To do</th>
+        </tr>
+        <tr ng-repeat="n in nums track by $index">
+            <th>{{n.Id}}</th>
+            <th>{{n.Todo}}</th>
+        </tr>
+    </table>
+
+
+
+    <ul ng-repeat="n in nums track by $index">
         <li>{{n}}</li>
     </ul>
 

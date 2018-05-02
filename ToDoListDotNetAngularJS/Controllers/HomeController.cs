@@ -1,7 +1,9 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Mvc;
+using ToDoListDotNetAngularJS.Models;
 
 namespace ToDoListDotNetAngularJS.Controllers
 {
@@ -27,13 +29,14 @@ namespace ToDoListDotNetAngularJS.Controllers
         }
 
         [HttpGet]
-        public void GetEmployees()
+        public JsonResult GetEmployees()
         {
-
+            List<Todos> todos = new List<Todos>();
             string connectionStr = ConfigurationManager
                 .ConnectionStrings["connectionStr"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionStr))
             {
+
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.CommandText = "spGetTodos";
@@ -42,7 +45,19 @@ namespace ToDoListDotNetAngularJS.Controllers
 
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Todos todo = new Todos();
+                    todo.Id = (int)rdr["Id"];
+                    todo.Todo = (string)rdr["Todo"];
+                    todos.Add(todo);
+                }
+                rdr.Close();
             }
+
+            Todos[]res=todos.ToArray();
+            return this.Json(todos, JsonRequestBehavior.AllowGet);
         }
     }
 }

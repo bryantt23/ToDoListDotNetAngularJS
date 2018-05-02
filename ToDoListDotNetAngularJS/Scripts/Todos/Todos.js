@@ -12,7 +12,7 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
             method: "GET",
             url: "Home/GetEmployees"
         }).then(function mySuccess(response) {
-            $scope.myWelcome = response.data;
+            $scope.nums = response.data;
         }, function myError(response) {
             $scope.myWelcome = response.statusText;
         });
