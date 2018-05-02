@@ -23,7 +23,6 @@
     </style>
 </head>
 <body ng-app="todoApp" ng-controller="todoCtrl">
-    {{message}}
 
     <table>
         <tr>
@@ -32,10 +31,11 @@
             <th></th>
             <th></th>
         </tr>
-        <tr ng-repeat="n in nums track by $index">
+        <tr ng-repeat="t in todos track by $index">
+            
             <th>{{$index+1}}</th>
-            <th>{{n.Todo}}</th>
-            <th><a href="#" ng-click="delete(n.Id)">Delete</a></th>
+            <th>{{t.Todo}}</th>
+            <th><a href="#" ng-click="deleteTodo(t.Id)">Delete</a></th>
         </tr>
     </table>
 

@@ -3,12 +3,18 @@
 var todoApp = angular.module("todoApp", []);
 
 todoApp.controller("todoCtrl", function ($scope, $http) {
-    $scope.message = "hii";
-
-    $scope.nums = [];
+    $scope.todos = [];
     
-    $scope.delete = function (index) {
-        alert(index);
+    $scope.deleteTodo = function (index) {
+        $http({
+            method: "Post",
+            url: "Home/DeleteTodo",
+            data: { index: index }
+        }).then(function mySuccess(response) {
+            $scope.getTodos();
+        }, function myError(response) {
+
+        });
     }
     
     $scope.addTodo = function (todo) {
@@ -16,8 +22,11 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
             method: "Post",
             url: "Home/AddTodo",
             data: { todo: todo }
+        }).then(function mySuccess(response) {
+            $scope.getTodos();
+        }, function myError(response) {
+
         });
-        $scope.getTodos();
     }
 
     $scope.getTodos = function () {
@@ -25,7 +34,7 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
             method: "GET",
             url: "Home/GetTodos"
         }).then(function mySuccess(response) {
-            $scope.nums = response.data;
+            $scope.todos = response.data;
         }, function myError(response) {
             $scope.myWelcome = response.statusText;
         });
