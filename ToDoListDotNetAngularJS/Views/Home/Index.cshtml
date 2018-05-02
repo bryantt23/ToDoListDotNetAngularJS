@@ -29,18 +29,18 @@
         <tr>
             <th>Id</th>
             <th>To do</th>
+            <th></th>
+            <th></th>
         </tr>
         <tr ng-repeat="n in nums track by $index">
-            <th>{{n.Id}}</th>
+            <th>{{$index+1}}</th>
             <th>{{n.Todo}}</th>
+            <th><a href="#" ng-click="delete(n.Id)">Delete</a></th>
         </tr>
     </table>
 
-
-
-    <ul ng-repeat="n in nums track by $index">
-        <li>{{n}}</li>
-    </ul>
+    <textarea ng-model="myTextarea"></textarea>
+    <button ng-click="addTodo(myTextarea)">Add todo</button>
 
     <button ng-click="getTodos()">get</button>
 </body>
