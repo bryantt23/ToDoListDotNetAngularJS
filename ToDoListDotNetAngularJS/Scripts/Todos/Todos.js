@@ -69,13 +69,28 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
                     EditorEnabled: false,
                     EditableTodo: response.data[i].Todo
                 }
-                console.log($scope.todos[i]);
+                //console.log($scope.todos[i]);
             }
         }, function myError(response) {
             $scope.myWelcome = response.statusText;
         });
     };
 
+    $scope.selectAllTodos = function () {        
+        for (var i = 0; i < $scope.todos.length; i++) {
+            $scope.todos[i]["checked"] = true;
+        }
+    };
+
+    $scope.unselectAllTodos = function () {
+        for (var i = 0; i < $scope.todos.length; i++) {
+            $scope.todos[i]["checked"] = false;
+        }
+    };
+
     $scope.getTodos();
 
+    $scope.sayHi = function () {
+        alert('hi!')
+    }
 });

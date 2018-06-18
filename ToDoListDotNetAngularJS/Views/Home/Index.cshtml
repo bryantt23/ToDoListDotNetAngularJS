@@ -26,12 +26,18 @@
 
     <table>
         <tr>
+            <th></th>
             <th>Id</th>
             <th>To do</th>
             <th></th>
             <th></th>
         </tr>
+        {{todos}}
         <tr ng-repeat="t in todos track by $index">
+
+            <th>
+                <input type="checkbox" ng-model="t.checked"  />
+            </th>
 
             <th>{{$index+1}}</th>
             <th>
@@ -62,5 +68,19 @@
     <br />
     <button ng-click="addTodo(myTextarea)">Add todo</button>
 
+    <br />
+    <button ng-click="selectAllTodos()">Select All Todos</button>
+    
+    <br />
+    <button ng-click="unselectAllTodos()">Unselect All Todos</button>
+
+    <br />
+    <button ng-click="deleteAllTodos()">Delete All Todos</button>
+
+    <br />
+    <button confirmed-click="sayHi()"
+            ng-confirm-click="Are you sure you want to delete all of the To Dos">
+        Say hi to 
+    </button>
 </body>
 </html> 
