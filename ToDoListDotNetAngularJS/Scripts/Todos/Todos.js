@@ -88,6 +88,14 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
         }
     };
 
+    $scope.addRandomTodos = function () {
+        var num = Math.floor(Math.random() * 10) + 1;
+
+        for (var i = 0; i < num; i++) {
+            $scope.addTodo(Math.floor(Math.random() * 100) + 1);
+        }
+    }; 
+
     $scope.getTodos();
 
     $scope.sayHi = function () {
