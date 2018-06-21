@@ -70,6 +70,25 @@ namespace ToDoListDotNetAngularJS.Controllers
             }
             return;
         }
+        
+        [HttpPost]
+        public void DeleteAllTodos()
+        {
+            string connectionStr = ConfigurationManager
+                .ConnectionStrings["connectionStr"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionStr))
+            {
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "spDeleteAllTodos";
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            return;
+        }
 
         [HttpPost]
         public void DeleteTodo(int index)

@@ -94,8 +94,19 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
         for (var i = 0; i < num; i++) {
             $scope.addTodo(Math.floor(Math.random() * 100) + 1);
         }
-    }; 
+    };
 
+    $scope.deleteAllTodos = function () {
+        $http({
+            method: "Post",
+            url: "Home/DeleteAllTodos"
+        }).then(function mySuccess(response) {
+            $scope.getTodos();
+        }, function myError(response) {
+
+        });
+    };
+    
     $scope.getTodos();
 
     $scope.sayHi = function () {
