@@ -106,6 +106,25 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
 
         });
     };
+
+    $scope.deleteSelectedTodos = function () {
+        var selectedTodos = [];
+        for (var i = 0; i < $scope.todos.length; i++) {
+            if ($scope.todos[i]["checked"]) {
+                selectedTodos.push($scope.todos[i]["Id"]);
+            }
+        }
+        $http({
+            method: "Post",
+            url: "Home/DeleteSelectedTodos",
+            data: { todos: selectedTodos }
+        }).then(function mySuccess(response) {
+            $scope.getTodos();
+        }, function myError(response) {
+
+        });
+        //console.log(selectedTodos);
+    };
     
     $scope.getTodos();
 

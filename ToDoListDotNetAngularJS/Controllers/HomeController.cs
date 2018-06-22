@@ -70,7 +70,7 @@ namespace ToDoListDotNetAngularJS.Controllers
             }
             return;
         }
-        
+
         [HttpPost]
         public void DeleteAllTodos()
         {
@@ -93,7 +93,6 @@ namespace ToDoListDotNetAngularJS.Controllers
         [HttpPost]
         public void DeleteTodo(int index)
         {
-            List<Todos> todos = new List<Todos>();
             string connectionStr = ConfigurationManager
                 .ConnectionStrings["connectionStr"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionStr))
@@ -107,6 +106,30 @@ namespace ToDoListDotNetAngularJS.Controllers
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
+            }
+            return;
+        }
+
+        [HttpPost]
+        public void DeleteSelectedTodos(int[] todos)
+        {
+            string connectionStr = ConfigurationManager
+                .ConnectionStrings["connectionStr"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionStr))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "spDeleteTodo";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                foreach (int todo in todos)
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@Id", todo);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
             }
             return;
         }
