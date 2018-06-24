@@ -33,7 +33,7 @@
             <th></th>
         </tr>
         {{todos}}
-        <tr ng-repeat="t in todos track by $index">
+        <tr ng-repeat="t in todos | filter:searchText track by $index">
 
             <th>
                 <input type="checkbox" ng-model="t.checked"  />
@@ -88,5 +88,8 @@
             ng-confirm-click="Are you sure you want to delete all of the To Dos">
         Say hi to 
     </button>
+
+    <br />
+    <label>Search: <input ng-model="searchText"></label>
 </body>
 </html> 
