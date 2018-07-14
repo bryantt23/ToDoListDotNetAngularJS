@@ -19,7 +19,7 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
     $scope.updateTodo = function (todo, id, index) {
         $http({
             method: "Post",
-            url: "Home/UpdateTodo",
+            url: "/Home/UpdateTodo",
             data: {
                 index: id,
                 todo: todo
@@ -34,7 +34,7 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
     $scope.deleteTodo = function (index) {
         $http({
             method: "Post",
-            url: "Home/DeleteTodo",
+            url: "/Home/DeleteTodo",
             data: { index: index }
         }).then(function mySuccess(response) {
             $scope.getTodos();
@@ -46,7 +46,7 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
     $scope.addTodo = function (todo) {
         $http({
             method: "Post",
-            url: "Home/AddTodo",
+            url: "/Home/AddTodo",
             data: { todo: todo }
         }).then(function mySuccess(response) {
             $scope.getTodos();
@@ -59,7 +59,7 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
         $scope.todos = [];
         $http({
             method: "GET",
-            url: "Home/GetTodos"
+            url: "/Home/GetTodos"
         }).then(function mySuccess(response) {
             console.log(response    );
             for (var i = 0; i < response.data.length; i++) {
