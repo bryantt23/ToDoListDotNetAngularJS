@@ -71,6 +71,8 @@ todoApp.controller("todoCtrl", function ($scope, $http) {
                 }
                 //console.log($scope.todos[i]);
             }
+
+            $scope.todos.sort((a,b)=>a.Id-b.Id);
         }, function myError(response) {
             $scope.myWelcome = response.statusText;
         });
